@@ -1,0 +1,13 @@
+# -e git+https://github.com/vistarmedia/fetcher.git@master#egg=fetcher
+# -e git+https://github.com/tobiasandtobias/flask-alembic.git#egg=flask-alembic
+# if you're getting a failure on installing pycurl, try uncommenting below
+# -e  git+https://github.com/p-push/pycurl@dcbe463a#egg=pycurl
+# -e  git+https://github.com/pycurl/pycurl#egg=pycurl
+Flask==0.10.1
+# Flask-Cache==0.11
+# Flask-Injector==0.6.0
+# Flask-SQLAlchemy==2.1
+# Flask-Script==0.5.3
+# Flask-Testing==0.4.2
+# Jinja2==2.7.3
+# sqlalchemy==1.0.5
