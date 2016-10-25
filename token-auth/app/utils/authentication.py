@@ -2,6 +2,7 @@ from flask import g
 from flask import jsonify
 from flask import request
 from functools import wraps
+from app.models.user import parse_token
 
 
 def auth_required(f):

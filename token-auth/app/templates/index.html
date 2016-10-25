@@ -2,10 +2,87 @@
 {% block content %}
 <h1>Home</h1>
 
-<form class="" action="/login" method="post">
+<!-- <form class="" action="/login" method="post">
   <input type="text" name="username">
   <input type="password" name="password">
   <input type="submit" name="submit">
-</form>
+</form> -->
+
+<div class="">
+  <input type="text" name="username" id="username" value="">
+  <input type="password" name="password" id="password" value="">
+  <input type="submit" name="submit"  id="submit" value="submit">
+</div>
+<div class="">
+  <input type="button" name="secureData" id="secureData" value="Get Data">
+  <div class="" id="secureDataContent">
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  var token    = '';
+  var submit   = document.getElementById('submit');
+  var username = document.getElementById('username');
+  var password = document.getElementById('password');
+
+  submit.onclick = function() {
+    var usernameValue = username.value;
+    var passwordValue = password.value;
+
+    var body = new FormData();
+
+    body.append("username", usernameValue);
+    body.append("password", passwordValue);
+
+    var args = {
+      method: 'POST',
+      body: body
+    };
+
+    fetch('/login', args).then((res) => {
+      console.log(res);
+      return res.json();
+    }).then((data) => {
+      token = data.token;
+    })
+  }
+
+  var getDataButton = document.getElementById('secureData');
+  var dataSpot = document.getElementById('secureDataContent');
+
+  getDataButton.onclick = function() {
+
+    var headers = new Headers({
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': '',
+      'Accept': 'application/json'
+    });
+
+    var args = {
+      method: 'GET',
+      headers: headers
+    }
+
+    fetch('/restricted', args).then((res) => {
+      if (res.status == 200) {
+        console.log(res);
+        return res.json();
+      } else {
+        dataSpot.innerHTML = "Unauthorized";
+        return res.json();
+      }
+    }).then((data) => {
+      dataSpot.innerHTML = JSON.stringify(data);
+    }).catch(() => {
+      console.log('Error occured')
+    })
+    // Try to retrieve some data and insert the result into secureDataContent
+  }
+
+
+
+</script>
 
 {% endblock %}
