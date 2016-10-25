@@ -22,7 +22,6 @@ class User():
 
   @staticmethod
   def get(user_id):
-    print 'Looking for user'
     for user in USERS:
       if user[0] == user_id:
         return User(user[0], user[1])
