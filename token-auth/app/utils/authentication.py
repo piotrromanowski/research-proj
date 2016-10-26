@@ -3,7 +3,7 @@ from flask import jsonify
 from flask import request
 from functools import wraps
 from app.models.user import parse_token
-
+from jwt import DecodeError, ExpiredSignature
 
 def auth_required(f):
   @wraps(f)
@@ -14,6 +14,10 @@ def auth_required(f):
       return response
     try:
       payload = parse_token(request)
+    except ValueError as e:
+      response = jsonify(message=e.message)
+      response.status_code = 401
+      return response
     except DecodeError:
       response = jsonify(message='Invalid Token')
       response.status_code = 401

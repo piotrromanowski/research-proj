@@ -19,7 +19,6 @@ def index():
 def login():
   user = User.get(request.form['username'])
   if user and hash_pass(request.form['password']) == user.password:
-    # TODO: Insert token into header
     token = create_token(user)
     return make_response(
                 jsonify({'token': token}))

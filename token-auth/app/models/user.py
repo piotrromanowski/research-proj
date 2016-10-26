@@ -12,7 +12,7 @@ def hash_pass(password):
   salted_password = password + app.secret_key
   return md5.new(salted_password).hexdigest()
 
-USERS = [("piotr", hash_pass("password123"))]
+USERS = [("admin", hash_pass("admin"))]
 
 class User():
 
@@ -37,5 +37,8 @@ def create_token(user):
   return token.decode('unicode_escape')
 
 def parse_token(req):
-  token = req.headers.get('Authorization').split()[1]
-  return jwt.decode(token, app.secret_key, algorithm='HS256')
+  if len(req.headers.get('Authorization').split()) > 1:
+    token = req.headers.get('Authorization').split()[1]
+    return jwt.decode(token, app.secret_key, algorithm='HS256')
+  else:
+    raise ValueError('Missing Auth Header')
