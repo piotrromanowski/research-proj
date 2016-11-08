@@ -2,22 +2,14 @@
 {% block content %}
 <h1>Home</h1>
 
-<!-- <form class="" action="/login" method="post">
-  <input type="text" name="username">
-  <input type="password" name="password">
-  <input type="submit" name="submit">
-</form> -->
-
 <div class="">
   <input type="text" name="username" id="username" value="">
   <input type="password" name="password" id="password" value="">
   <input type="submit" name="submit"  id="submit" value="submit">
 </div>
-<div class="">
+<div> 
   <input type="button" name="secureData" id="secureData" value="Get Data">
-  <div class="" id="secureDataContent">
-
-  </div>
+  <div id="secureDataContent"></div>
 </div>
 
 
@@ -30,8 +22,10 @@
   submit.onclick = function() {
     var usernameValue = username.value;
     var passwordValue = password.value;
-
     var body = new FormData();
+
+    // When the submit button is clicked, get the username and password
+    // from the inputs and append the data to a form that will be submitted
 
     body.append("username", usernameValue);
     body.append("password", passwordValue);
@@ -41,10 +35,11 @@
       body: body
     };
 
+    // Make a POST request to the /login route with the form data.
     fetch('/login', args).then((res) => {
-      console.log(res);
       return res.json();
     }).then((data) => {
+      // Set the token from the response
       token = data.token;
     })
   }
@@ -65,9 +60,10 @@
       headers: headers
     }
 
+    // Make a request to the restricted route when pressing the request
+    // data button
     fetch('/restricted', args).then((res) => {
       if (res.status == 200) {
-        console.log(res);
         return res.json();
       } else {
         dataSpot.innerHTML = "Unauthorized";

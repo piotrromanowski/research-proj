@@ -2,6 +2,12 @@ import jwt
 from datetime import datetime
 from datetime import timedelta
 
+# ----------------------------------------------------------
+# This is simply a test script that I used to test the jwt
+# library to try out encoding and decoding a token generated
+# by the library.
+# ----------------------------------------------------------
+
 payload = {
   'sub': 'piotr257', # subject
   'iat': datetime.utcnow(), # issued at
