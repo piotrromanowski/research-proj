@@ -15,7 +15,7 @@ def hash_pass(password):
 USERS = [("piotr", hash_pass("password123"))]
 
 class User(UserMixin):
-''' User model that will be used to help un-abstract our users from data '''
+  ''' User model that will be used to help un-abstract our users from data '''
 
   def __init__(self, user_id, password):
     self.id = user_id

@@ -23,6 +23,7 @@ def login():
   # This route is used to login, and retrieve the correct cookies
   # Check if user was found in the form and if the password submitted
   # in the form matches the user stored in the in-memory database
+  user = User.get(request.form['username'])
   if user and hash_pass(request.form['password']) == user.password:
     # If valid, set the cookie and send user to the requested route or
     # to the homepage. At this point the user will have a valid cookie
